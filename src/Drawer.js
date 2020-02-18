@@ -16,6 +16,8 @@ import Profile from './pages/Profile';
 
 import Quiz from './pages/Quiz';
 
+import Exam from './pages/Exam';
+
 import Logout from './components/Logout';
 
 import AsyncStorage from '@react-native-community/async-storage';
@@ -59,6 +61,7 @@ const Drawer = createDrawerNavigator(
   {
   Home: Home,
   Quiz: Quiz,
+  Exam: Exam,
   Logout: Logout,
   Routes: { screen: Routes,
     navigationOptions: {

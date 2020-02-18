@@ -37,29 +37,64 @@ class Nilai extends Component<Props> {
     this.state = {
       terjawab: 0,
       benar: 0,
+      salah: 0,
+      kosong: 0,
       nilai : 0,
       idsubmateri: 0,
       iduser:0,
+      best: null,
+      idnilai:0,
+      data: []
     };
   }
   async componentDidMount() {
             const benars = this.props.navigation.state.params.jumlahbenar;
             const terjawabs = this.props.navigation.state.params.jumlahterjawab;
+            const kosongs = this.props.navigation.state.params.jumlahkosong;
+            const salahs = this.props.navigation.state.params.jumlahsalah;
             const idsubmateris = this.props.navigation.state.params.idsubmateri;
+            const idusers = this.props.navigation.state.params.iduser;
             this.setState({idsubmateri:idsubmateris});
+            this.setState({iduser:idusers});
             this.setState({ benar: benars});
             this.setState({ terjawab: terjawabs});
+            this.setState({ kosong: kosongs});
+            this.setState({ salah: salahs});
             const hitung = benars/terjawabs*100;
             this.setState({ nilai: hitung});
+            axios.get('http://3.82.209.169/api/nilai',{params: {id_user:idusers,id_soal:idsubmateris}})
+                .then(res => {
+                  this.setState({data:res.data});
+                  console.log(this.state.data);
+                  for (let item of this.state.data) {
+                  const bests = item.nilai;
+                  this.setState({ best:bests });
+                  this.setState({ idnilai:item.id_nilai });
+                  }
+                })
   }
 
     nextQuestion= () => {
-      this.props.navigation.navigate('Home');      
-    }
-    tryAgain= () => {
-      this.props.navigation.navigate('IsiQuiz',{id_sub_materi:this.state.idsubmateri});      
+    if (this.state.nilai>this.state.best) {
+      const nilais = this.state.nilai;
+      const idnilais = this.state.idnilai;
+      console.log(nilais);
+      console.log(idnilais);
+      axios.put(`http://3.82.209.169/api/editnilai/${idnilais}?nilai=${nilais}`)
+      .then(res => {
+        const data = res.data;
+        console.log(data);
+      })
+      
+    this.props.navigation.navigate('Home');      
+    }else if (this.state.best==null) {
+    axios.post('http://3.82.209.169/api/nilai', {id_user:this.state.iduser,id_soal:this.state.idsubmateri,nilai:this.state.nilai});      
+    this.props.navigation.navigate('Home');      
+    }else{
+    this.props.navigation.navigate('Home');      
     }
 
+    }
     render() {
        return (
         <View style={styles.container} >
@@ -69,13 +104,15 @@ class Nilai extends Component<Props> {
                     marginTop: 10,
                     marginLeft: 20,
                   }}>{this.state.nilai}</Text>            
-         <Text style={styles.text}>{this.state.benar}</Text>
-         <Text style={styles.text}>{this.state.terjawab}</Text>
+         <Text style={styles.text}>best {this.state.best}</Text>
+         <Text style={styles.text}>iduser {this.state.iduser}</Text>
+         <Text style={styles.text}>idsubmateri {this.state.idsubmateri}</Text>
+         <Text style={styles.text}>benar {this.state.benar}</Text>
+         <Text style={styles.text}>salah {this.state.salah}</Text>
+         <Text style={styles.text}>kosong {this.state.kosong}</Text>
+         <Text style={styles.text}>terjawab {this.state.terjawab}</Text>
                   <TouchableOpacity onPress={this.nextQuestion}>
                     <Text>Next</Text>
-                  </TouchableOpacity>
-                  <TouchableOpacity onPress={this.tryAgain}>
-                    <Text>Try Again</Text>
                   </TouchableOpacity>
          </View>
      );

@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import Materi from '../api/Materi';
+import SubMateri from '../api/SubMateri';
 import {
 
 StyleSheet,
@@ -53,7 +53,7 @@ class Home extends React.Component {
         </View>
       </View>
 
-      <Materi />
+      <SubMateri />
 
       </Container>
     );

@@ -35,9 +35,7 @@ class SubMateri extends React.Component {
     };
   }
   UNSAFE_componentWillMount() {
-    const idmateri = this.props.navigation.state.params.id_materi;
-    const judulmateri = this.props.navigation.state.params.judul_sub_materi;
-    axios.get(`http://3.82.209.169/api/submateri`,{params: {id_materi:idmateri,judul_sub_materi:judulmateri}})
+    axios.get(`http://3.82.209.169/api/submateri`,{params: {id_materi:3}})
       .then(res => {
         const submateri = res.data;
         console.log(submateri);

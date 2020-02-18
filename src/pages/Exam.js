@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import SubQuiz from '../api/SubQuiz';
+import IsiExam from '../api/IsiExam';
 import {
 
 StyleSheet,
@@ -24,7 +24,7 @@ import {withNavigation} from 'react-navigation';
 
 import AsyncStorage from '@react-native-community/async-storage';
 
-class Quiz extends React.Component {
+class Exam extends React.Component {
 
   constructor(props) {
     super(props)
@@ -54,7 +54,7 @@ UNSAFE_componentWillMount() {
         </View>
       </View>
 
-      <SubQuiz />
+      <IsiExam />
 
       </Container>
     );
@@ -69,4 +69,4 @@ const styles = StyleSheet.create({
     color: '#FFF',
   }
 })
- export default withNavigation(Quiz);
+ export default withNavigation(Exam);

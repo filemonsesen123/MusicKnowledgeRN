@@ -19,6 +19,8 @@ ImageBackground
 
 } from 'react-native';
 
+import AsyncStorage from '@react-native-community/async-storage';
+
 import {withNavigation} from 'react-navigation';
 
 import {ListItem } from 'react-native-elements'
@@ -31,13 +33,19 @@ class SubQuiz extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-        submateri: []
+        submateri: [],
+        id_user: 0,
     };
   }
+    getData = async () => {
+      const test = await AsyncStorage.getItem('data');
+      const parsed = JSON.parse(test);
+      const id = parsed.id;
+      this.setState({id_user:id});
+      }
   UNSAFE_componentWillMount() {
-    const idmateri = this.props.navigation.state.params.id_materi;
-    const judulmateri = this.props.navigation.state.params.judul_sub_materi;
-    axios.get(`http://3.82.209.169/api/submateri`,{params: {id_materi:idmateri,judul_sub_materi:judulmateri}})
+      this.getData();
+      axios.get(`http://3.82.209.169/api/submateri`,{params: {id_materi:3}})
       .then(res => {
         const submateri = res.data;
         console.log(submateri);
@@ -48,7 +56,7 @@ class SubQuiz extends React.Component {
   keyExtractor = (item, index) => index.toString()
   renderItem = ({ item }) => (
                 <Card style={styles.cardContainer}>
-                    <CardItem button onPress={()=>this.props.navigation.navigate('IsiQuiz',{id_sub_materi:item.id_sub_materi})}>
+                    <CardItem button onPress={()=>this.props.navigation.navigate('IsiQuiz',{id_sub_materi:item.id_sub_materi,id_user:this.state.id_user})}>
                         <Left><Text style={styles.textTitle}>{item.judul_sub_materi}</Text></Left>
                         <Right><Image source={{uri: item.gambar_sub_materi}} style={{top: 48}}/></Right>
                     </CardItem>
