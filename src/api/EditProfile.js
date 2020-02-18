@@ -21,6 +21,8 @@ ImageBackground
 
 import AsyncStorage from '@react-native-community/async-storage';
 
+import RNRestart from 'react-native-restart';
+
 import {withNavigation} from 'react-navigation';
 
 import {ListItem } from 'react-native-elements'
@@ -49,12 +51,13 @@ UNSAFE_componentWillMount() {
       const email = String(parsed.email);
       const password = String(parsed.password);
       const id = parsed.id;
-      console.log(id)
       this.setState({name: name,email:email,id:id,password:password});
       }
-edit(event) {
-
-    axios.put(`http://3.82.209.169/api/updateuser/${this.state.id}`, {params:{name:this.state.name,password:this.state.password}})
+edit=()=> {
+    const id_user = this.state.id;
+    const names = this.state.name;
+    const passwords = this.state.password;
+    axios.put(`http://3.82.209.169/api/updateuser/${id_user}?name=${names}&password=${passwords}`)
       .then(res => {
               if (res.data==1) {
         AsyncStorage.clear();

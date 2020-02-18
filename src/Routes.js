@@ -13,6 +13,7 @@ import { Text, Button } from 'native-base';
 import Home from './pages/Home';
 
 import Profile from './pages/Profile';
+
 import IsiMateri from './pages/PageIsiMateri';
 
 import IndexQuiz from './pages/Quiz';
@@ -20,6 +21,8 @@ import IndexQuiz from './pages/Quiz';
 import IsiQuiz from './pages/PageIsiQuiz';
 
 import Nilai from './pages/PageNilai';
+
+import Exam from './pages/Exam';
 
 import Logout from './components/Logout';
 
@@ -31,6 +34,7 @@ const Routes = createStackNavigator(
   Quiz: IndexQuiz,
   IsiQuiz: IsiQuiz,
   Nilai: Nilai,
+  IsiExam : Exam
 	  },
 {
       header: null,

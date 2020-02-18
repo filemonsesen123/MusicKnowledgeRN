@@ -16,7 +16,7 @@ import Profile from './pages/Profile';
 
 import Quiz from './pages/Quiz';
 
-import Exam from './pages/Exam';
+import IndexExam from './pages/IndexExam';
 
 import Logout from './components/Logout';
 
@@ -61,7 +61,7 @@ const Drawer = createDrawerNavigator(
   {
   Home: Home,
   Quiz: Quiz,
-  Exam: Exam,
+  Exam: IndexExam,
   Logout: Logout,
   Routes: { screen: Routes,
     navigationOptions: {

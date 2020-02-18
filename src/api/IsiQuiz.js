@@ -70,9 +70,9 @@ class IsiQuiz extends Component<Props> {
   next(){    
     var jumlah = this.state.soal.length -1;
         this.state.terjawab = this.state.terjawab+1;
-        this.state.nomor = this.state.nomor+1;
       if (this.state.index<jumlah) {
-        this.state.waktu = 20;
+        this.state.nomor = this.state.nomor+1;
+        this.state.waktu = this.state.waktu+5;
         this.state.index++;
         this.state.answered = false;
       }else{

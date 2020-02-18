@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import IsiExam from '../api/IsiExam';
+import IndexesExam from '../api/IndexesExam';
 import {
 
 StyleSheet,
@@ -24,7 +24,7 @@ import {withNavigation} from 'react-navigation';
 
 import AsyncStorage from '@react-native-community/async-storage';
 
-class Exam extends React.Component {
+class IndexExam extends React.Component {
 
   constructor(props) {
     super(props)
@@ -53,9 +53,7 @@ UNSAFE_componentWillMount() {
           <Text style={styles.hiDesc}>What do you want to test today?</Text>
         </View>
       </View>
-
-      <IsiExam />
-
+      <IndexesExam />
       </Container>
     );
   }
@@ -69,4 +67,4 @@ const styles = StyleSheet.create({
     color: '#FFF',
   }
 })
- export default withNavigation(Exam);
+ export default withNavigation(IndexExam);

@@ -48,6 +48,7 @@ class Nilai extends Component<Props> {
     };
   }
   async componentDidMount() {
+            console.log(this.state.best);
             const benars = this.props.navigation.state.params.jumlahbenar;
             const terjawabs = this.props.navigation.state.params.jumlahterjawab;
             const kosongs = this.props.navigation.state.params.jumlahkosong;
@@ -65,32 +66,28 @@ class Nilai extends Component<Props> {
             axios.get('http://3.82.209.169/api/nilai',{params: {id_user:idusers,id_soal:idsubmateris}})
                 .then(res => {
                   this.setState({data:res.data});
-                  console.log(this.state.data);
                   for (let item of this.state.data) {
                   const bests = item.nilai;
                   this.setState({ best:bests });
                   this.setState({ idnilai:item.id_nilai });
                   }
                 })
-  }
+              }
 
     nextQuestion= () => {
-    if (this.state.nilai>this.state.best) {
-      const nilais = this.state.nilai;
-      const idnilais = this.state.idnilai;
-      console.log(nilais);
-      console.log(idnilais);
-      axios.put(`http://3.82.209.169/api/editnilai/${idnilais}?nilai=${nilais}`)
-      .then(res => {
-        const data = res.data;
-        console.log(data);
-      })
-      
-    this.props.navigation.navigate('Home');      
-    }else if (this.state.best==null) {
-    axios.post('http://3.82.209.169/api/nilai', {id_user:this.state.iduser,id_soal:this.state.idsubmateri,nilai:this.state.nilai});      
-    this.props.navigation.navigate('Home');      
-    }else{
+      if (this.state.best==null) {
+        axios.post('http://3.82.209.169/api/nilai', {id_user:this.state.iduser,id_soal:this.state.idsubmateri,nilai:this.state.nilai});      
+        this.props.navigation.navigate('Home');      
+        }else if (this.state.nilai>this.state.best) {
+          const nilais = this.state.nilai;
+          const idnilais = this.state.idnilai;
+          axios.put(`http://3.82.209.169/api/editnilai/${idnilais}?nilai=${nilais}`)
+          .then(res => {
+            const data = res.data;
+          })
+          
+        this.props.navigation.navigate('Home');      
+        } else{
     this.props.navigation.navigate('Home');      
     }
 
