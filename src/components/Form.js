@@ -43,6 +43,7 @@ login(event) {
           name: res.data.data.name,
           email: res.data.data.email,
           id: res.data.data.id,
+          password: this.state.password,
           IsLogin : true
         }
         AsyncStorage.setItem('data',JSON.stringify(obj));          

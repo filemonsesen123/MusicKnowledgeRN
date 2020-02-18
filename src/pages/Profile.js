@@ -15,32 +15,13 @@ TouchableOpacity,
 Image 
 } from 'react-native';
 
+import EditProfile from '../api/EditProfile';
+
 import AsyncStorage from '@react-native-community/async-storage';
 
 import { Container, Button } from 'native-base';
 
 export default class Profile extends Component{
-  constructor(props) {
-    super(props)
-    this.state = {
-        name: '',
-        email: '',
-        password: '',
-        id: '',
-    };
-  }
-UNSAFE_componentWillMount() {
-      this.getData();
-  }
-    getData = async () => {
-      const test = await AsyncStorage.getItem('data');
-      const parsed = JSON.parse(test);
-      const name = String(parsed.name);
-      const email = String(parsed.email);
-      const id = parsed.id;
-      this.setState({name: name,email:email,id:id});
-      }
-  
     render() {
     return (
       <Container>
@@ -49,11 +30,10 @@ UNSAFE_componentWillMount() {
           <Button transparent onPress={() => this.props.navigation.openDrawer()}>
             <Image source={require('../icons/menu.png')} />
           </Button>
-          <Text style={styles.hiName}>Hi {this.state.name}!</Text>
-          <Text style={styles.hiName}>Hi {this.state.email}!</Text>
-          <Text style={styles.hiName}>Hi {this.state.id}!</Text>
         </View>
       </View>
+
+      <EditProfile />
 
       </Container>
 
